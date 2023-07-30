@@ -32,7 +32,7 @@ done
 PROJECTS_QUANTITY=${#PROJECTS_NAME[@]}
 
 #Obtener la lista de recursos - #Get the resource list
-RESOURCES_LIST=$( cat .tx/config | grep file_filter | sed -e "s|file_filter = translations/||g" -e "s|/.*$||g" )
+RESOURCES_LIST=$( cat .tx/config | grep file_filter | sed -e "s|file_filter            = translations/||g" -e "s|/.*$||g" )
 RESOURCES_QUANTITY=$( echo $RESOURCES_LIST | wc -w )
 
 

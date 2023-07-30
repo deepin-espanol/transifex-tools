@@ -19,35 +19,6 @@
 
 LANGUAGE=es
 
-
-#Comprobar si pip, git y tx están instalados - #Check if pip, git and tx are installed
-if [[ -z $(which pip) ]]; then
-	#statements
-	echo "The pip command is necessary to download translations."
-	echo "Install pip with the following command."
-	echo "sudo apt install python-pip"
-
-	exit 1
-fi
-
-if [[ -z $(which git) ]]; then
-	#statements
-	echo "The git command is necessary to download translations."
-	echo "Install git with the following command."
-	echo "sudo apt install git"
-
-	exit 1
-fi
-
-if [[ -z $(which tx) ]]; then
-	#statements
-	echo "The tx command is necessary to download translations."
-	echo "Install tx with the following command."
-	echo "sudo pip install transifex-client"
-
-	exit 1
-fi
-
 echo -e "
 -------------------------------------
 The current language code is \"$LANGUAGE\".
@@ -80,7 +51,7 @@ fi
 
 
 #Hacer una lista de los recursos - #Make a list of resources
-RESOURCES_LIST=$( cat .tx/config | grep file_filter | sed -e "s|file_filter = translations/||g" -e "s|/.*$||g" )
+RESOURCES_LIST=$( cat .tx/config | grep file_filter | sed -e "s|file_filter            = translations/||g" -e "s|/.*$||g" )
 
 RESOURCES_QUANTITY=$( echo $RESOURCES_LIST | wc -w )
 
@@ -118,7 +89,7 @@ for i in $RESOURCES_LIST; do
 	echo "Resource: "$( echo $i | sed "s|^.*\.||")
 	
 	#Descargar recurso - #Download resource
-	tx pull -s -l $LANGUAGE -r $i
+	tx pull -s -l $LANGUAGE -r $i -t
 
     echo "======================================="
 

@@ -14,30 +14,12 @@
 #-  notes   : 
 #-==============================================================================
 
-#Comprobar si pip, git y tx están instalados - #Check if pip, git and tx are installed
-if [[ -z $(which pip) ]]; then
-	#statements
-	echo "The pip command is necessary to configure translations."
-	echo "Install pip with the following command."
-	echo "sudo apt install python-pip"
-
-	exit 1
-fi
-
-if [[ -z $(which git) ]]; then
-	#statements
-	echo "The git command is necessary to configure translations."
-	echo "Install git with the following command."
-	echo "sudo apt install git"
-
-	exit 1
-fi
-
+#Comprobar si tx está instalado - #Check if tx is installed
 if [[ -z $(which tx) ]]; then
 	#statements
 	echo "The tx command is necessary to configure translations."
 	echo "Install tx with the following command."
-	echo "sudo pip install transifex-client"
+	echo "curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash"
 
 	exit 1
 fi
@@ -75,7 +57,7 @@ echo "======================================="
 echo ""
 
 #Iniciar cuenta de transifex - #Init transifex account
-tx init --skipsetup
+tx init
 
 #Configurar cada uno de los proyectos - #Configure each of the projects
 for ((i=1; i <= PROJECTS_QUANTITY; i++)); do
@@ -89,6 +71,6 @@ for ((i=1; i <= PROJECTS_QUANTITY; i++)); do
 	echo ""
 
 	#Configurar proyecto - #Configure project
-	tx config mapping-remote ${PROJECTS_URL[i]}
+	tx add remote ${PROJECTS_URL[i]}
 
 done
